@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="../styles/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+        <!-- homepage logo with link & selected company name -->
+        </header>
+        <nav>
+        <!-- company information tab -->
+        </nav>
+        <main>
+            <nav>
+            <!-- company's product -->
+                <ol>
+
+                </ol>
+            </nav>
+            <aside>
+            <!-- components of product -->
+                <ol>
+                    <li><canvas id="component1"></canvas></li>
+                    <li><canvas id="component2"></canvas></li>
+                    <li><canvas id="component3"></canvas></li>
+                </ol>
+            </aside>
+            <canvas id="mp_canvas">
+            </canvas>
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+    <script type="importmap">
+        {
+            "imports" : {
+                "three" : "/js/three.module.js"
+            }
+        }
+    </script>
+    <script type="module" src="/js/product_page_renderer.js"></script>
+    <script type="module">
+        import * as THREE from 'three';
+        const boxWidth = 1;
+        const boxHeight = 1;
+        const boxDepth = 1;
+    
+        const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+         // const cubes = [
+    //         makeInstance(geometry, 0x44aa88,  0),
+    //         makeInstance(geometry, 0x8844aa, -2),
+    //         makeInstance(geometry, 0xaa8844,  2),];
+        const canvases = [
+            document.getElementById('mp_canvas'),
+            document.getElementById('component1'),
+            document.getElementById('component2'),
+            document.getElementById('component3')
+        ]
+        render_on_canvas(geometry,0x44aa88,0,canvases[0]);
+        render_on_canvas(geometry,0x8844aa,0,canvases[1]);
+        render_on_canvas(geometry,0xaa8844,0,canvases[2]);
+        // render_on_canvas(geometry,0x44aa88,0,canvases[3]);
+
+    </script>
+</html>

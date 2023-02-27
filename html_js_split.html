@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <title>Three.js - Fundamentals</title>
+        <link href="/styles/ex_styles.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="editor">
+            <div id="view"><canvas id="c"></canvas></div>
+            <div id="controls">
+              <div>
+                <p>various controls
+                   would appear here</p>
+                 <div>Drag this bar</div>
+                 <div>⇐</div>
+              </div>
+            </div>
+        </div>
+        <!-- <script  type="importmap">{
+          "imports": {
+              "three": "https://threejs.org/build/three.module.js"
+          }
+      }</script><script type="module" src="https://threejs.org/manual/examples/threejs-responsive.js"></script>
+      <script src="https://threejs.org/manual/3rdparty/split.min.js"></script> -->
+    </body>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/js/three.module.js"
+        }
+      }
+      </script>
+    <script type="module" src="/js/threejstutorial.js"></script>
+    <script type="module">
+    main()
+    </script>
+    <script src="/js/split.min.js"></script>
+    <script type="module">
+      /* global Split */
+
+    // This code is only related to handling the split.
+    // Our three.js code has not changed
+    Split(['#view', '#controls'], {  // eslint-disable-line new-cap
+        sizes: [75, 25],
+        minSize: 100,
+        elementStyle: (dimension, size, gutterSize) => {
+          return {
+            'flex-basis': `calc(${size}% - ${gutterSize}px)`,
+          };
+        },
+        gutterStyle: (dimension, gutterSize) => {
+          return {
+            'flex-basis': `${gutterSize}px`,
+          };
+        },
+      });
+  
+    </script>
+</html>
