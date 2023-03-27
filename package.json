@@ -6,8 +6,8 @@
   "author": "jeon",
   "license": "MIT",
   "dependencies": {
+    "cassandra-driver": "^4.6.4",
     "express": "^4.18.2",
-    "forge-apis": "^0.9.5",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.20",
     "three": "^0.146.0"
