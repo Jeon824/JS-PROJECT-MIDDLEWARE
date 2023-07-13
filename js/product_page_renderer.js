@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import * as GLTFLoader from '../js/GLTFLoader.js'
 
 
 function render_on_canvas(product, box_color, x, canvas_id/*, gltf_model*/){
