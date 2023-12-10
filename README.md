@@ -1,20 +1,25 @@
-industry-platform-middleware
+COSMICWEB-WAS
 ============================
-express middleware for 2D,3D industry information
+2D,3D model and company info, transaction for manufacturing 
 
 main branch
------------
+----------------------------------------
 
 >#Added
->>1.Access from react to WAS
->>2.seacrch event
->>3.http post product information to WAS
+>>1.js file to connect with aws dynamoDB
+>>2.js file for database data model
+
+>#Changed
+>>1.core scripte syntax from commonjs to es6
+
+>#Removed
+>>1.cassandra-driver javascript file
 
 >#Required
->>1.Spliting and Uploading file
->>2.Create account
->>3.Login and link with session
->>4.Rendering product graphic with threejs
->>5.build nginx reverse porxy for servcie
+>>1.account service
+>>2.transaction service
+>>3.connect with aws dyanamodb and s3
+>>4.convert 2D, 3D data model to render on client side
+
 
 

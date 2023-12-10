@@ -2,49 +2,45 @@ const express = require('express');
 const router = express.Router();
 const cassandra_driver = require('cassandra-driver');
 //const upload = multer({dest: 'uploads/'});
-const CryptoJS = require('crypto-js');
+const {SHA256, enc} = require('crypto-js');
 const path = require('path');
-const exp = require('constants');
+const { restart } = require('nodemon');
 
-const node1 = '192.168.23.131';//Cassandra-node2 IP address
-const node2 = '192.168.23.129';//Cassandra-node1 IP address
-const node3 = '192.168.23.130';//Cassandra-node3 IP address
+const node1 = '121.181.182.173';//Cassandra-node2 IP address 192.168.23.131(vm net)
+const node2 = '221.164.134.135';//Cassandra-node1 IP address 192.168.23.129
+const node3 = '121.150.111.65';//Cassandra-node3 IP address
 
 router.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'../frontend-old/html/product_info.html'));
+    //res.sendFile(path.join(__dirname,'../frontend-old/html/product_info.html'));
 })
 
 router.get('/:keyword',(req,res) => {
-    console.log(req.body);
-
     
     const client = new cassandra_driver.Client({
-        contactPoint:[node1, node2, node3],
+        contactPoints:[node1, node2, node3],
         localDataCenter:'datacenter1',
         keyspace:'korea'
     });
 
-    const query_keyword = '*' + req.params.keyword + '*';//'*keyword*'
+    const query_keyword = req.params.keyword;//'*keyword*'
+    console.log(query_keyword);
 
-    const query = 'SELECT id, company_name, product_name, file_name, version FROM products WHERE product_name = ?';
+    const query = 'SELECT company_name, product_name, file_name, version, upload_date FROM products WHERE product_name = ?';
     
-    var data_be_delivered;
-
     client.execute(query, [ query_keyword ]).
     then((result)=>{
-        var page_num = 1;
         var data_length = result.rows.length;
-        if(data_length <= 11){
-            data_be_delivered = result.rows.slice(data_length + 1);
+        if(data_length<1){
+            res.send('No matching products exist');
         }
         else{
-            data_be_delivered = result.rows.slice(1+((page_num-1)*10),page_num*10 +1);
+            res.json(result.rows);
         }   
-
 
     })
     .catch((errors)=>{
-
+        console.log(errors);
+        res.send('No matching products exist');
     });
 
     
@@ -61,8 +57,10 @@ router.post('/upload', (req,res) => {
     const keyspace = country;//how to deside keyspace
     const version = req.body.version;
     const str = company_name + product_name + version;
-    const id = 'P'//CryptoJS.MD5(JSON.stringify({str})).toString(CryptoJS.enc.Utf8);
-    const upload_date = Date().toString();
+    //const id = SHA256(str).toString(CryptoJS.enc.Hex);
+    const upload_date = new Date();
+    const upload_date_iso = new Date(upload_date.toISOString());
+
 
     const client = new cassandra_driver.Client({
         contactPoints:[node1, node2, node3],
@@ -70,8 +68,8 @@ router.post('/upload', (req,res) => {
         keyspace:'korea'
     });
 
-    const query = 'INSERT INTO products (id, company_name, product_name, file_name, version, upload_date) VALUES(?,?,?,?,?,?)';
-    const params = [id, company_name, product_name, file_name, version, upload_date];
+    const query = 'INSERT INTO products (company_name, product_name, file_name, version, upload_date) VALUES(?,?,?,?,?)';
+    const params = [company_name, product_name, file_name, version, upload_date_iso];
     client.execute(query, params).
     then((result)=>{
         // res.sendStatus(200).send('cassandra-connector request receieved');

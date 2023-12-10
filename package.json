@@ -6,6 +6,7 @@
   "author": "jeon",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.428.0",
     "cassandra-driver": "^4.6.4",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
@@ -18,6 +19,6 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon sever.js"
   }
 }
