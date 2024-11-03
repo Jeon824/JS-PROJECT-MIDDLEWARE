@@ -2,7 +2,7 @@ import product from './routes/aws.mjs';
 import express from 'express';
 import { dirname } from 'path';
 import {fileURLToPath} from 'url';
-import log from './routes/log.mjs';
+// import log from './routes/log.mjs';
 const server = express();
 
 server.use('/product', product);
@@ -35,12 +35,12 @@ console.log(frontend_dir);
 server.use(express.static(frontend_dir));
 //server.use(express.static(path.join(__dirname,'/frontend-old/html')))
 server.use('/product',product);
-server.use('/log', log);
+// server.use('/log', log);
 
 //Main Web Page
 server.get('/',(req,res) => {
 
-    res.sendFile(path.join(__dirname,'/frontend/build/index.html'));
+    res.sendFile(path.join(__dirname,'/Frontend/main-page/build/index.html'));
 
 });
 
