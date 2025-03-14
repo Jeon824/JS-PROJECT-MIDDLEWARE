@@ -6,9 +6,9 @@ const {SHA256, enc} = require('crypto-js');
 const path = require('path');
 const { restart } = require('nodemon');
 
-const node1 = '121.181.182.173';//Cassandra-node2 IP address 192.168.23.131(vm net)
-const node2 = '221.164.134.135';//Cassandra-node1 IP address 192.168.23.129
-const node3 = '121.150.111.65';//Cassandra-node3 IP address
+const node1 = '121.***.***.173';//Cassandra-node2 IP address
+const node2 = '221.***.***.135';//Cassandra-node1 IP address
+const node3 = '121.***.***.65';//Cassandra-node3 IP address
 
 router.get('/',(req,res)=>{
     //res.sendFile(path.join(__dirname,'../frontend-old/html/product_info.html'));
